@@ -12,59 +12,87 @@ from django.http import JsonResponse
 import datetime
 
 def justfun(request):
+
+    if 'userid' not in request.session:
+        request.session['userid'] = 0
+    if 'username' not in request.session:
+        request.session['username'] = ''
+    if 'lenkart' not in request.session:
+        request.session['lenkart'] = 0
+    if 'lenwish' not in request.session:
+        request.session['lenwish'] = 0
+
     return redirect(mainpage)
 
-# kart lenght
-lenkart=0
-lenwish=0
-#  user login view
-userid=0
-username=''
+
+
+def userlogin(request):
+    if request.method=='POST':
+        username1 = request.POST['username']
+        password1 = request.POST['password']
+        users=authenticate(username=username1,password=password1)
+        if userprofile.objects.filter(email=username1,password=password1).exists():
+            gets=userprofile.objects.get(email=username1,password=password1)
+            request.session['userid']=gets.id
+            request.session['username']=gets.firstname
+
+            return redirect(mainpage)
+        elif users is not None and users.is_superuser==1:
+            request.session['username']='admin'
+            return redirect(adminpage)
+        elif userdatabase.objects.filter(email=username1,password=password1).exists():
+            gets=userdatabase.objects.get(email=username1,password=password1)
+            request.session['userid']=gets.id
+            request.session['username']=gets.name
+
+            return redirect(sellerpage)
+        else:
+            messages.error(request,"username or password  is incorrect")
+            return redirect(userlogin)
+    else:
+        return render(request, 'login.html')
+
+
+
+
 def mainpage(request):
-    global userid
 
+    userid=request.session["userid"]
+    username=request.session["username"]
 
-    #for know the length if the kart 
-    a=kart.objects.filter(profileid_id=userid)
-    list=[]
-    for i in a:
-        list+=[i.productid_id]
-    global lenkart
+    # Calculate length of the kart 
+    a = kart.objects.filter(profileid_id=userid)
+    list = [i.productid_id for i in a]
+    request.session['lenkart'] = len(list)
     lenghts=len(list)
-    lenkart=lenghts
-
-
-    # for length of wishlist
-    x=wishlist.objects.filter(profileid_id=userid)
-    y=[]
-    for i in x:
-        y+=[i.productid_id]  
-    
-    global lenwish
+   
+    # Calculate length of wishlist
+    x = wishlist.objects.filter(profileid_id=userid)
+    y = [i.productid_id for i in x]
+    request.session['lenwish'] = len(y)
     lenwish=len(y)
+    
+    lenghts= request.session['lenkart']
+    lenwish= request.session['lenwish']
 
 
     
     a=userdatabase.objects.all()
     c=products.objects.all()
-    global username
     w=wishlist.objects.all()
     b={'a1':a, 'c1':c,'lenght':lenghts,'username':username,'userid':userid,'lenwish':lenwish,'w':w,'y':y}
     return render(request,'home.html',b)  
 
 def specific(request,ids):
-    global userid
-    global username
-    global lenkart
-
-
+    userid=request.session["userid"]
+    username=request.session["username"]
+    lenkart= request.session['lenkart']
 
     # for wishlist
     x=wishlist.objects.filter(profileid_id=userid)
     y=[]
     for i in x:
         y+=[i.productid_id]  
-    global lenwish
     lenwish=len(y)
     
 
@@ -75,9 +103,9 @@ def specific(request,ids):
     return render(request,'specificbrand.html',b)
 
 def genderBOY(request):
-    global userid
-    global username
-    global lenkart
+    userid=request.session["userid"]
+    username=request.session["username"]
+    lenkart= request.session['lenkart']
 
 
     # for wishlist
@@ -86,7 +114,6 @@ def genderBOY(request):
     for i in x:
         y+=[i.productid_id] 
 
-    global lenwish
     lenwish=len(y) 
 
 
@@ -95,9 +122,9 @@ def genderBOY(request):
     return render(request,'genderBOY.html',b)
 
 def genderGIRL(request):
-    global lenkart
-    global userid
-    global username
+    userid=request.session["userid"]
+    username=request.session["username"]
+    lenkart= request.session['lenkart']
 
 
     # for wishlist
@@ -106,7 +133,6 @@ def genderGIRL(request):
     for i in x:
         y+=[i.productid_id]  
 
-    global lenwish
     lenwish=len(y) 
 
     a=products.objects.filter(gender__in=['C','G'])
@@ -114,9 +140,9 @@ def genderGIRL(request):
     return render(request,'genderGIRL.html',b)
 
 def genderCOMMON(request):
-    global userid
-    global username
-    global lenkart
+    userid=request.session["userid"]
+    username=request.session["username"]
+    lenkart= request.session['lenkart']
 
     # for wishlist
     x=wishlist.objects.filter(profileid_id=userid)
@@ -124,7 +150,6 @@ def genderCOMMON(request):
     for i in x:
         y+=[i.productid_id]  
 
-    global lenwish
     lenwish=len(y) 
 
     a=products.objects.filter(gender='C')
@@ -132,9 +157,9 @@ def genderCOMMON(request):
     return render(request,'genderCOMMON.html',b)
 
 def accorshoes(request,ids):
-    global userid
-    global username
-    global lenkart
+    userid=request.session["userid"]
+    username=request.session["username"]
+    lenkart= request.session['lenkart']
 
     # for wishlist
     x=wishlist.objects.filter(profileid_id=userid)
@@ -142,7 +167,6 @@ def accorshoes(request,ids):
     for i in x:
         y+=[i.productid_id]  
 
-    global lenwish
     lenwish=len(y) 
 
     c=ids
@@ -151,10 +175,10 @@ def accorshoes(request,ids):
     return render(request,'accorshoes.html',b)
 
 def product(request,ids):
-    global userid
-    global username
-    global lenkart
-    global lenwish
+    userid=request.session["userid"]
+    username=request.session["username"]
+    lenkart= request.session['lenkart']
+    lenwish= request.session['lenwish']
     a=products.objects.get(id=ids)
     brandname=a.seller_id
     k=userdatabase.objects.get(id=brandname)
@@ -163,16 +187,16 @@ def product(request,ids):
     return render(request, "product.html",b) 
 
 def karts(request):
-    global userid
-    global username
-    global lenkart
-    global lenwish
+    userid=request.session["userid"]
+    username=request.session["username"]
+    lenkart= request.session['lenkart']
+    lenwish= request.session['lenwish']
     a=kart.objects.filter(profileid=userid)
     list=[] 
     for i in a:
         list+=[i.productid_id]
     lenghts=len(list)
-    global lenkart
+    request.session['lenkart']=lenghts
     lenkart=lenghts
 
     # calculationg total
@@ -190,12 +214,12 @@ def kartsremove(request,ids):
     return redirect(karts)
 
 def productdetails(request):
-    global username
+    username=request.session["username"]
     if username == '':
         return redirect(userlogin)
     else :
         if request.method=="POST":
-            global userid
+            userid=request.session["userid"]
             productid=request.POST['product_id']
             productname=request.POST['product_name']
             y=products.objects.get(id=productid)
@@ -217,35 +241,6 @@ def productdetails(request):
 
         return redirect(karts)
 
-def userlogin(request):
-    if request.method=='POST':
-        username1 = request.POST['username']
-        password1 = request.POST['password']
-        users=authenticate(username=username1,password=password1)
-        if userprofile.objects.filter(email=username1,password=password1).exists():
-            gets=userprofile.objects.get(email=username1,password=password1)
-            id_gets=gets.id
-            name_gets=gets.firstname
-            global userid
-            global username
-            userid=id_gets
-            username=name_gets
-            return redirect(mainpage)
-        elif users is not None and users.is_superuser==1:
-            username='admin'
-            return redirect(adminpage)
-        elif userdatabase.objects.filter(email=username1,password=password1).exists():
-            gets=userdatabase.objects.get(email=username1,password=password1)
-            id_gets=gets.id
-            name_gets=gets.name
-            userid=id_gets
-            username=name_gets
-            return redirect(sellerpage)
-        else:
-            messages.error(request,"username or password  is incorrect")
-            return redirect(userlogin)
-    else:
-        return render(request, 'login.html')
 
 def usersignup(request):
     if request.method == 'POST':
@@ -265,17 +260,17 @@ def usersignup(request):
         return render(request,'signup.html')
     
 def userlogout(request):
-    global userid
-    global username
-    userid=0
-    username=''
+    userid=request.session["userid"]
+    username=request.session["username"]
+    request.session['userid']=0
+    request.session['username']=''
     return redirect(mainpage)
 
 def whishlist(request):
-    global userid
-    global username
-    global lenkart
-    global lenwish
+    userid=request.session["userid"]
+    username=request.session["username"]
+    lenkart= request.session['lenkart']
+    lenwish= request.session['lenwish']
     if username == '':
         return redirect(userlogin)
     else :
@@ -292,10 +287,10 @@ def whishlist(request):
         return render(request,'whishlist.html',b)
 
 def wishlistadd(request,ids):
-    global userid
-    global username
-    global lenkart
-    global lenwish
+    userid=request.session["userid"]
+    username=request.session["username"]
+    lenkart= request.session['lenkart']
+    lenwish= request.session['lenwish']
     product_id=ids
     if username == '':
         return redirect(userlogin)
@@ -305,10 +300,10 @@ def wishlistadd(request,ids):
     
 
 def wishlistremove(request,idn):
-    global userid
-    global username
-    global lenkart
-    global lenwish
+    userid=request.session["userid"]
+    username=request.session["username"]
+    lenkart= request.session['lenkart']
+    lenwish= request.session['lenwish']
     product_id=idn
     if username == '':
         return redirect(userlogin)
@@ -321,7 +316,7 @@ def wishlistremove(request,idn):
 # ADMIN PAGE START 
 
 def adminpage(request):
-    global username
+    username=request.session["username"]
     if username=='admin':
         x=userdatabase.objects.all()
         b={'c1':x}
@@ -330,7 +325,7 @@ def adminpage(request):
         return redirect(mainpage)
       
 def addseller(request):
-    global username
+    username=request.session["username"]
     if username=='admin':
         if request.method == 'POST':
             name = request.POST.get('name')
@@ -355,14 +350,14 @@ def removeseller(request,ids):
 
 
 def sellerview(request,ids):
-    global username
+    username=request.session["username"]
     if username=='admin':
         a=userdatabase.objects.get(id=ids)
         b={'c1':a}
         return render(request,'sellerview.html',b)
 
 def selleredit(request,ids):
-    global username
+    username=request.session["username"]
     if username=='admin':
         if request.method == 'POST':
             name = request.POST.get('name')
@@ -392,8 +387,8 @@ def selleredit(request,ids):
         
 
 def sellerpage(request):
-    global username
-    global userid
+    userid=request.session["userid"]
+    username=request.session["username"]
     a=products.objects.filter(seller_id=userid)
     b={'c1':a,'username':username}
     return render(request,'sellerpage.html',b)
@@ -404,8 +399,8 @@ def productremove(request,ids):
     return redirect(sellerpage)
 
 def addproduct(request):
-    global username
-    global userid
+    userid=request.session["userid"]
+    username=request.session["username"]
     if username == '':
         return redirect(userlogin)
     else :
@@ -428,8 +423,8 @@ def addproduct(request):
             return render(request,'addproduct.html',b)
         
 def viewproduct(request,uid):
-    global username
-    global userid
+    userid=request.session["userid"]
+    username=request.session["username"]
     if username == '':
         return redirect(userlogin)
     else :
@@ -438,8 +433,8 @@ def viewproduct(request,uid):
         return render(request,'viewproduct.html',b)
         
 def updateproduct(request,uid):
-    global username
-    global userid
+    userid=request.session["userid"]
+    username=request.session["username"]
     if username == '':
         return redirect(userlogin)
     else :
@@ -477,10 +472,10 @@ def updateproduct(request,uid):
             return render(request,'updateproduct.html',b)
 
 def addresspage(request):
-    global username
-    global userid
-    global lenwish
-    global lenkart
+    userid=request.session["userid"]
+    username=request.session["username"]
+    lenkart= request.session['lenkart']
+    lenwish= request.session['lenwish']
     if username == '':
         return redirect(userlogin)
     else :
@@ -494,17 +489,19 @@ def addresspage(request):
         return render(request,'addresspage.html',b)
 
 def addressremove(request,ids):
-    global username
-    global userid
+    userid=request.session["userid"]
+    username=request.session["username"]
+    lenkart= request.session['lenkart']
+    lenwish= request.session['lenwish']
     x=addressmodel.objects.get(profileid_id=userid)
     x.delete()
     return redirect(addresspage)
 
 def addaddress(request):
-    global username
-    global userid
-    global lenwish
-    global lenkart
+    userid=request.session["userid"]
+    username=request.session["username"]
+    lenkart= request.session['lenkart']
+    lenwish= request.session['lenwish']
     if username == '':
         return redirect(userlogin)
     else :  
@@ -534,10 +531,10 @@ def addaddress(request):
 
 
 def address(request,ids):
-    global username
-    global userid
-    global lenwish
-    global lenkart
+    userid=request.session["userid"]
+    username=request.session["username"]
+    lenkart= request.session['lenkart']
+    lenwish= request.session['lenwish']
     if username == '':
         return redirect(userlogin)
     else :
@@ -584,10 +581,10 @@ def address(request,ids):
         
 
 def orderpage(request):
-    global username
-    global userid
-    global lenwish
-    global lenkart
+    userid=request.session["userid"]
+    username=request.session["username"]
+    lenkart= request.session['lenkart']
+    lenwish= request.session['lenwish']
     if username == '':
         return redirect(userlogin)
     else :
@@ -600,10 +597,10 @@ def orderpage(request):
         return render(request,'orderpage.html',b)
         
 def specificorder(request,ids):
-    global username
-    global userid
-    global lenwish
-    global lenkart
+    userid=request.session["userid"]
+    username=request.session["username"]
+    lenkart= request.session['lenkart']
+    lenwish= request.session['lenwish']
     if username == '':
         return redirect(userlogin)
     else :
@@ -614,8 +611,10 @@ def specificorder(request,ids):
         return render(request,'specificorder.html',b)
     
 def sellerorderpage(request):
-    global username
-    global userid
+    userid=request.session["userid"]
+    username=request.session["username"]
+    lenkart= request.session['lenkart']
+    lenwish= request.session['lenwish']
     if username == '':
         return redirect(userlogin)
     else :
@@ -639,8 +638,10 @@ def sellerorderpage(request):
         return render(request,'sellerorderpage.html',b)
 
 def vieworderdetails(request,ids):
-    global username
-    global userid
+    userid=request.session["userid"]
+    username=request.session["username"]
+    lenkart= request.session['lenkart']
+    lenwish= request.session['lenwish']
     if username == '':
         return redirect(userlogin)
     else :
@@ -664,8 +665,10 @@ def setdelivered(request,ids):
     return redirect(sellerorderpage)
 
 def canceldelivery(requuest,ids):
-    global username
-    global userid
+    userid=request.session["userid"]
+    username=request.session["username"]
+    lenkart= request.session['lenkart']
+    lenwish= request.session['lenwish']
     x=order.objects.get(id=ids)
     profileid_id=x.profileid_id
     productid_id=x.productid_id
