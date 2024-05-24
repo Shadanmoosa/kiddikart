@@ -1,0 +1,148 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Ashion Template" />
+    <meta name="keywords" content="Ashion, unica, creative, html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>kiddiekart |login</title>
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cookie&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Css Styles -->
+    <!-- <link
+      rel="stylesheet"
+      href="{% static 'css/bootstrap.min.css' %}"
+      type="text/css"
+    /> -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'css/font-awesome.min.css' %}"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'css/elegant-icons.css' %}"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'css/jquery-ui.min.css' %}"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'css/magnific-popup.css' %}"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'css/owl.carousel.min.css' %}"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'css/slicknav.min.css' %}"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'css/style.css' %}"
+      type="text/css"
+    />
+  </head>
+
+  <body>
+    <!-- Page Preloder -->
+    <!-- <div id="preloder">
+      <div class="loader"></div>
+    </div> -->
+
+    <!-- Offcanvas Menu Begin -->
+
+    <!-- Offcanvas Menu End -->
+
+    <!-- Header Section Begin -->
+
+    <header
+      class="header"
+    >
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-xl-3 col-lg-2">
+            <div class="header__logo">
+              <a href="../2"
+                ><img src="{% static 'img/logo2.png' %}" alt="" / style="height:
+                35px;"></a
+              >
+            </div>
+        </div>
+      </div>
+    </header>
+
+
+
+    <body>
+
+        <section style="padding-top: 10%;" class="contact spad">
+            <div class="container">
+                <div class="row">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <div class="contact__content">
+                            <div class="contact__form">
+                                <h5 style="text-align: center;">Login Now</h5>
+                                <form action="../login" class="d-flex flex-column align-items-center" method="post">
+                                  {% csrf_token %}
+                                  <p  style="text-align: center; color: red;">
+                                    {% for i in messages %}
+                                    {{i}}
+                                    {% endfor %}</p>
+                                    <input style="width: 300px;" type="text" placeholder="Email" name="username">
+                                    <input type="password" placeholder="Password" name="password">
+                                    <p>New Customer ! Please <a href="../signup">Sign Up</a></p>
+                                    <button type="submit" class="site-btn">Log In</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+
+ 
+        
+
+    <!-- Js Plugins -->
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <!-- <script src="{% static 'js/bootstrap.min.js' %}"></script> -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'js/mixitup.min.js' %}"></script>
+    <script src="{% static 'js/jquery.countdown.min.js' %}"></script>
+    <script src="{% static 'js/jquery.slicknav.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/jquery.nicescroll.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+  </body>
+</html>

@@ -1,0 +1,307 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Ashion Template" />
+    <meta name="keywords" content="Ashion, unica, creative, html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>kiddiekart |login</title>
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cookie&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Css Styles -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'css/font-awesome.min.css' %}"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'css/elegant-icons.css' %}"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'css/jquery-ui.min.css' %}"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'css/magnific-popup.css' %}"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'css/owl.carousel.min.css' %}"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'css/slicknav.min.css' %}"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'css/style.css' %}"
+      type="text/css"
+    />
+  </head>
+
+  <body>
+    <!-- Offcanvas Menu Begin -->
+    <div class="offcanvas-menu-overlay"></div>
+    <div class="offcanvas-menu-wrapper">
+      <div style="margin-top: 350px;" class="offcanvas__close">+</div>
+      <div id="mobile-menu-wrap"></div>
+      <div class="offcanvas__auth">
+        <a>{{username}}</a>
+        <a href="../logout">LogOut</a>
+        <a href="../sellerpage">Seller page</a>
+      </div>
+    </div>
+    <!-- Offcanvas Menu End -->
+
+    <!-- Header Section Begin -->
+    <header
+      style="position: fixed; z-index: 10000; width: 100%; margin-top: -10px"
+      class="header"
+    >
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-xl-3 col-lg-2">
+            <div class="header__logo">
+              <a href=""><img src="{% static 'img/logo2.png' %}" alt="" style="height: 35px;"></a>
+            </div>
+          </div>
+          <div class="col-lg-8">
+            <div class="header__right">
+              <div class="header__right__auth">
+                <div class="dropdown">
+                  <button style="background-color: white; color: black; font-size: 15px; border-color: white;" class="btn btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    {{username}}
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="../logout">LogOut</a></li>
+                    <li><a class="dropdown-item" href="../sellerpage">Seller page</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="canvas__open">
+          <i class="fa fa-bars"></i>
+        </div>
+      </div>
+    </header>
+
+    <div style="height: 30px;"></div>
+
+    <section class="product spad">
+      <div class="container">
+
+
+        <div class="row">
+          <div class="col-lg-13 col-md-13">
+            <div class="section-title">
+              <h4>For Packed</h4>
+            </div>
+            {% if lenpack == 0 %}
+            <p>no orders</p>
+            {% endif %}
+            <div class="col-lg-12">
+              <div class="shop__cart__table">
+                <table>
+                  <tbody>
+                    {% for k in c1 %}
+                    <tr>
+                      <td class="cart__product__item">
+                        <img style="height: 70px; width: 70px;" src="{{k.image.url}}" alt="">
+                        <div class="cart__product__item__title">
+                          <a href="../viewproduct/{{k.id}}"><h6>{{k.productname}}</h6></a>
+                          {% if k.size != '' %}
+                          <p style="color: rgba(29, 28, 28, 0.537);">Size: {{k.size}} | QTY:{{k.quantity}}</p>
+                          {% else %}
+                          <p style="color: rgba(29, 28, 28, 0.537);">QTY:{{k.quantity}}</p>
+                          {% endif %}
+                        </div>
+                      </td>
+                      <td class="cart__price">profileid: {{k.profileid}}</td>
+                      <td class="cart__price">order id: {{k.id}}</td>
+                      <td>
+                        <div class="col-lg-12">
+                          <a href="../vieworderdetails/{{k.id}}" class="site-btn">view</a>
+                        </div>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-lg-13 col-md-13">
+              <div class="section-title">
+                <h4>For Delevery</h4>
+              </div>
+              {% if lendel == 0 %}
+              <p>no orders</p>
+              {% endif %}
+              <div class="col-lg-12">
+                <div class="shop__cart__table">
+                  <table>
+                    <tbody>
+                      {% for m in y %}
+                      <tr>
+                        <td class="cart__product__item">
+                          <img style="height: 70px; width: 70px;" src="{{m.image.url}}" alt="">
+                          <div class="cart__product__item__title">
+                            <h6>{{m.productname}}</h6>
+                            {% if m.size != '' %}
+                            <p style="color: rgba(29, 28, 28, 0.537);">Size: {{m.size}} | QTY:{{m.quantity}}</p>
+                            {% else %}
+                            <p style="color: rgba(29, 28, 28, 0.537);">QTY:{{m.quantity}}</p>
+                            {% endif %}
+                          </div>
+                        </td>
+                        <td class="cart__price">profileid: {{m.profileid}}</td>
+                        <td class="cart__price">order id: {{m.id}}</td>
+                        <td>
+                          <div class="col-lg-12">
+                            <a href="../vieworderdetails/{{m.id}}" class="site-btn">view</a>
+                          </div>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          
+          <div class="row">
+            <div class="col-lg-13 col-md-13">
+              <div class="section-title">
+                <h4>Deleverd</h4>
+              </div>
+              {% if lendd == 0 %}
+              <p>no orders</p>
+              {% endif %}
+              <div class="col-lg-12">
+                <div class="shop__cart__table">
+                  <table>
+                    <tbody>
+                      {% for s in z %}
+                      <tr>
+                        <td class="cart__product__item">
+                          <img style="height: 70px; width: 70px;" src="{{s.image.url}}" alt="">
+                          <div class="cart__product__item__title">
+                            <h6>{{s.productname}}</h6>
+                            {% if s.size != '' %}
+                            <p style="color: rgba(29, 28, 28, 0.537);">Size: {{s.size}} | QTY:{{s.quantity}}</p>
+                            {% else %}
+                            <p style="color: rgba(29, 28, 28, 0.537);">QTY:{{s.quantity}}</p>
+                            {% endif %}
+                          </div>
+                        </td>
+                        <td class="cart__price">profileid: {{s.profileid}}</td>
+                        <td class="cart__price">order id: {{s.id}}</td>
+                        <td>
+                          <div class="col-lg-12">
+                            <a href="../vieworderdetails/{{s.id}}" class="site-btn">view</a>
+                          </div>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+
+
+          <div class="row">
+            <div class="col-lg-13 col-md-13">
+              <div class="section-title">
+                <h4>cancel delivery</h4>
+              </div>
+              {% if lenca == 0 %}
+              <p>no orders</p>
+              {% endif %}
+              <div class="col-lg-12">
+                <div class="shop__cart__table">
+                  <table>
+                    <tbody>
+                      {% for f in u %}
+                      <tr>
+                        <td class="cart__product__item">
+                          <img style="height: 70px; width: 70px;" src="{{f.image.url}}" alt="">
+                          <div class="cart__product__item__title">
+                            <h6>{{f.productname}}</h6>
+                            {% if f.size != '' %}
+                            <p style="color: rgba(29, 28, 28, 0.537);">Size: {{f.size}} | QTY:{{f.quantity}}</p>
+                            {% else %}
+                            <p style="color: rgba(29, 28, 28, 0.537);">QTY:{{f.quantity}}</p>
+                            {% endif %}
+                          </div>
+                        </td>
+                        <td class="cart__price">profileid: {{f.profileid}}</td>
+                        <td class="cart__price">order id: {{f.id}}</td>
+                        <td>
+                          <div class="col-lg-12">
+                          </div>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+      </div>
+    </section>
+
+    <!-- Js Plugins -->
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'js/mixitup.min.js' %}"></script>
+    <script src="{% static 'js/jquery.countdown.min.js' %}"></script>
+    <script src="{% static 'js/jquery.slicknav.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/jquery.nicescroll.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+  </body>
+</html>

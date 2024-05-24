@@ -1,0 +1,54 @@
+{% extends 'base.html' %} {% load static %}
+{% block acc %}
+<section style="padding-top: 80px" class="product spad">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-md-4">
+          <div class="section-title">
+            <h4>{{ c1 }}</h4>
+            <!-- <h4>{% if c1.gender == G %} GIRLS {% elif c1.gender == B %} BOYS {% else %} BOTH {% endif %}</h4> -->
+          </div>
+        </div>
+      </div>
+      <div class="row property__gallery">
+        <!-- {% if product_count == 0 %}
+        <h1 style="text-align: center; font-size: larger;">No Products Available Now!</h1>
+        {% endif %} -->
+        {% for k in a1 %}
+        <div class="col-lg-3 col-md-4 col-sm-6 mix men">
+          <div class="product__item">
+            <div
+              class="product__item__pic set-bg"
+              data-setbg="{{k.productphoto1.url}}"
+            >
+              <ul class="product__hover">
+                <li>
+                  <a href="../product/{{k.id}}"
+                    ><span class="arrow_expand"></span
+                  ></a>
+                </li>
+                <li>
+                {% if k.id in y %}
+                  <a style="background-color:#ca1515 ;" href="../wishlistremove/{{k.id}}"><span  class="icon_heart_alt"></span></a>
+                {% else %}
+                    <a href="../wishlistadd/{{ k.id }}"><span class="icon_heart_alt"></span></a>
+                {% endif %}
+                </li>
+                <li>
+                  <a href="../product/{{k.id}}"><span class="icon_bag_alt"></span></a>
+                </li>
+              </ul>
+            </div>
+            <div class="product__item__text">
+              <h6>
+                <a href="../product/{{k.id}}" style="text-decoration: none">{{k.productname}}</a>
+              </h6>
+              <div class="product__price">Rs: {{k.offerprice}}</div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endblock acc %}

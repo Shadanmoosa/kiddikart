@@ -1,0 +1,56 @@
+{% extends 'base1.html' %} {% load static %} 
+{% block addpage %}
+<section class="checkout spad">
+<div class="container">
+<div class="row">
+    <div style="height: 20px;"></div>
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="cart__btn">
+            <div class="cart__product__item__title">
+                <h6>{{v.firstname}}</h6>
+                <p style="color: rgba(29, 28, 28, 0.537); font-size: small;">Email:{{v.email}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="cart__btn update__btn">
+            <a href="../addaddress"><span>+</span> Add Address</a>
+        </div>
+    </div>
+</div>
+
+<div class="section-title">
+    <h4>Select Address</h4>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="shop__cart__table"> 
+            {% if addresslen == 0 %}
+             <h1 style="text-align: center; font-size: larger; padding-top: 50px;">No Address Available</h1>
+            {% else %}
+            <table>
+                <tbody>
+                    {% for k in a1 %}
+                    <tr> 
+                        <td class="cart__product__item">
+                            <div class="cart__product__item__title">
+                                <a href="../address/{{k.id}}"><h6>{{k.address}}</h6></a>
+                                <p style="color: rgba(29, 28, 28, 0.537);"> city:{{k.city}}  | Pincode:{{k.postcode}}</p>
+                            </div>
+                        </td>
+                        <td class="cart__price">Phone:{{k.phone}}</td>
+                        <td class="cart__close"><a href="addressremove/{{k.id}}"><span  class="icon_close"></span></a></td> 
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</div>
+</section>
+
+{% endblock addpage %}

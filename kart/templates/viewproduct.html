@@ -1,0 +1,286 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Ashion Template" />
+    <meta name="keywords" content="Ashion, unica, creative, html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>kiddiekart |login</title>
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cookie&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Css Styles -->
+    <!-- <link
+      rel="stylesheet"
+      href="{% static 'css/bootstrap.min.css' %}"
+      type="text/css"
+    /> -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'css/font-awesome.min.css' %}"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'css/elegant-icons.css' %}"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'css/jquery-ui.min.css' %}"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'css/magnific-popup.css' %}"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'css/owl.carousel.min.css' %}"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'css/slicknav.min.css' %}"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'css/style.css' %}"
+      type="text/css"
+    />
+  </head>
+
+  <body>
+    <!-- Page Preloder -->
+    <!-- <div id="preloder">
+      <div class="loader"></div>
+    </div> -->
+
+    <!-- Offcanvas Menu Begin -->
+
+        <!-- Offcanvas Menu Begin -->
+        <div class="offcanvas-menu-overlay"></div>
+        <div class="offcanvas-menu-wrapper">
+          <div style="margin-top: 350px ;" class="offcanvas__close">+</div>
+          <div id="mobile-menu-wrap"></div>
+            <div class="offcanvas__auth">
+              <a>{{username}}</a>
+              <a href="../logout">LogOut</a>
+              <a href="../sellerpage">Seller page</a>
+            </div>
+          
+        </div>
+        <!-- Offcanvas Menu End -->
+    <!-- Offcanvas Menu End -->
+
+    <!-- Header Section Begin -->
+
+    <header
+    style="position: fixed; z-index: 10000; width: 100%; margin-top: -10px"
+    class="header"
+  >
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xl-3 col-lg-2">
+          <div class="header__logo">
+            <a href=""
+              ><img src="{% static 'img/logo2.png' %}" alt="" / style="height:
+              35px;"></a
+            >
+          </div>
+        </div>
+        
+        <div class="col-lg-8">
+          <div class="header__right">
+            <div class="header__right__auth">
+              <div class="dropdown">
+                <button style="background-color: white; color: black; font-size: 15px; border-color: white;"  class="btn btn-secondary " type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  {{username}}
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="../logout">LogOut</a></li>
+                  <li><a class="dropdown-item" href="../sellerpage">Seller page</a></li>
+                </ul>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="canvas__open">
+        <i class="fa fa-bars"></i>
+      </div>
+    </div>
+  </header>
+    <body>
+
+
+
+            <div style="height: 30px;"></div>
+<section class="checkout spad">
+    <div class="container">
+        <form action="../updateproduct/{{c1.id}}" class="checkout__form" method="POST" enctype="multipart/form-data">
+            {% csrf_token %} 
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="cart__btn">
+                        <a href="../updateproduct/{{c1.id}}"><span><img style="height: 15px;" src="{% static 'img/editlogo.png' %}" alt=""></span> Edit</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="cart__btn update__btn">
+                        <a href="../productremove/{{c1.id}}"><span><img style="height: 15px;" src="{% static 'img/remove111.png' %}" alt=""></span> Remove</a>
+                    </div>
+                </div>
+            <div class="row">
+                <div class="col-lg-8">
+                    <h5>Update Product</h5>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="checkout__form__input">
+                                <p>productname <span>*</span></p>
+                                <input type="text" name="productname" value="{{c1.productname}}" disabled>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="checkout__form__input">
+                                <p>producttype <span>*</span></p>
+                                <input type="text" name="producttype" value="{{c1.producttype}}" disabled>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                                <p>Gender<span>*</span></p>
+                                <div class="form-check form-check-inline">
+                                  <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="B" {% if c1.gender == 'B' %} checked {% endif %} disabled>
+                                  <label class="form-check-label" for="inlineRadio1">BOY</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                  <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="G" {% if c1.gender == 'G' %} checked {% endif %} disabled>
+                                  <label class="form-check-label" for="inlineRadio2">GIRL</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                  <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="C" {% if c1.gender == 'C' %} checked {% endif %} disabled>
+                                  <label class="form-check-label" for="inlineRadio2">COMMON</label>
+                                </div>
+                            </div>
+                            
+                            <div style="height: 15px;"></div>
+
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                              <div class="checkout__form__input">
+                                  <p>price <span>*</span></p>
+                                  <input type="text" name="price" value="{{c1.price}}" disabled>
+                              </div>
+                          </div>
+                          <div class="col-lg-6 col-md-6 col-sm-6">
+                              <div class="checkout__form__input">
+                                  <p>offerprice <span>*</span></p>
+                                  <input type="text" name="offerprice" value="{{c1.offerprice}}" disabled>
+                              </div>
+                          </div>
+                            <div style="width: 100%;height: 100px;box-sizing: 4px;" class="checkout__form__input">
+                                <p>Description<span>*</span></p>
+                                <input type="text" name="Description" value="{{c1.description}}" disabled>
+                            </div>
+
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+
+                          </div>
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+                          <div class="col-lg-6 col-md-6 col-sm-6">
+                          </div>
+                            <div>
+                                <div class="instagram">
+                                    <div class="container-fluid">
+                                      <div class="row d-flex justify-content-center">
+
+                                        <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+                                          <div class="instagram__item set-bg" data-setbg="{{ c1.productphoto1.url }}">
+                                            <div class="instagram__text">
+                                              <!-- <i class="fa fa-instagram"></i> -->
+                                              <a>photo 1</a>
+                                            </div>
+                                          </div>
+                                        </div>
+
+                                        <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+                                            <div class="instagram__item set-bg" data-setbg="{{ c1.productphoto2.url }}">
+                                              <div class="instagram__text">
+                                                <!-- <i class="fa fa-instagram"></i> -->
+                                                <a>photo 2</a>
+                                              </div>
+                                            </div>
+                                          </div>
+
+                                          <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+                                            <div class="instagram__item set-bg" data-setbg="{{ c1.productphoto3.url }}">
+                                              <div class="instagram__text">
+                                                <!-- <i class="fa fa-instagram"></i> -->
+                                                <a>photo 3</a>
+                                              </div>
+                                            </div>
+                                          </div>
+
+                                          <div class="col-lg-2 col-md-6 col-sm-6 p-0">
+                                            <div class="instagram__item set-bg"  data-setbg="{{ c1.productphoto4.url }}">
+                                              <div class="instagram__text">
+                                                <!-- <i class="fa fa-instagram"></i> -->
+                                                <a>photo 4</a>
+                                              </div>
+                                            </div>
+                                          </div>
+
+                                      </div>
+                                    </div>
+                          
+
+
+
+
+
+
+
+
+    <!-- Js Plugins -->
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <!-- <script src="{% static 'js/bootstrap.min.js' %}"></script> -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'js/mixitup.min.js' %}"></script>
+    <script src="{% static 'js/jquery.countdown.min.js' %}"></script>
+    <script src="{% static 'js/jquery.slicknav.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/jquery.nicescroll.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+  </body>
+</html>

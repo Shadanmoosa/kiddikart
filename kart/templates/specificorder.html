@@ -1,0 +1,79 @@
+{% extends 'base1.html' %} {% load static %} 
+{% block specificorder %}
+<section class="checkout spad">
+    <div class="container">
+    <div class="row">
+        <div class="row g-hor-centered-row--md g-row-col--5 g-margin-b-80--xs g-margin-b-100--md">
+            <div class="col-sm-6 g-hor-centered-row__col">
+                <div style="height: 40px;"></div>
+                <p class="text-uppercase g-font-size-14--xs g-font-weight--700 g-color--primary g-letter-spacing--2 g-margin-b-25--xs">Order id: {{x.id}}</p>
+                <a href="../product/{{x.productid_id}}"><h2 class="g-font-size-32--xs g-font-size-36--sm g-margin-b-25--xs">{{x.productname}}</h2></a>
+                {% if x.size != '' %}
+                <p class="g-font-size-18--sm">SIZE: {{x.size}}  |  QUANTITY: {{x.quantity}} </p>
+                {% else %}
+                <p class="g-font-size-18--sm">QUANTITY: {{x.quantity}} </p>
+                {% endif %}
+                <p class="g-font-size-18--sm">PRICE: {{x.price}} &nbsp&nbsp&nbsp TOTAL PRICE: {{x.total}}</p>
+                
+            </div>
+        <div class="col-sm-1"></div>
+        <div class="col-sm-4 g-hor-centered-row__col">
+            <img style="height: 350px; width: 350px;" class="img-responsive" src="{{x.image.url}}" alt="Mockup Image">
+         </div>
+         </div>
+
+
+        <div style="margin-top: 10px;" class="d-flex justify-content-center ">
+            <div class="discount__pic">
+                {% if x.delivered != 0 %}
+                <img style="height: 120px;" src="{% static 'img/Status/3.png' %}" alt="">
+                {% elif x.packed != 0 %}
+                <img style="height: 120px;" src="{% static 'img/Status/2.png' %}" alt="">
+                {% else %}
+                <img style="height: 120px;" src="{% static 'img/Status/1.png' %}" alt="">
+                {% endif %}
+            </div>
+        </div>
+
+        <section style="margin-top: 15px;" >
+            <div class="container">
+                <div class="footer-features">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Address:</h4>
+                            <P>NAME: {{y.firstname}}</P>
+                            <P>ADDRESS: {{y.address}}</P>
+                            <p>{{y.city}}-{{y.postcode}}</p>
+                            <P>PHONE: {{y.phone}}</P>
+                            <P>EMAIL: {{y.email}}</P>
+
+                        </div>
+                        <div class="col-md-6">
+                            <h4>Status:</h4>
+                                <p>order   :  {{x.orderdate}}</p>
+                                {% if x.packed != 0 %}
+                                <p>packed  :  {{x.packeddate}}</p>
+                                {% endif %}
+                                {% if x.delivered != 0 %}
+                                <p>deliverd :  {{x.delivereddate}}</p>
+                                {% endif %}
+                                <div style="margin-top: 30px;" class="col-lg-12">
+                                    {% if x.delivered == 0 %}
+                                    <a href="../canceldelivery/{{x.id}}" class="site-btn">Cancel Order</a>
+                                    {% endif %}
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+    </div> 
+    </div>
+    </section>
+
+        
+
+{% endblock specificorder %}

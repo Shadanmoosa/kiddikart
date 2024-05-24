@@ -1,0 +1,146 @@
+{% extends 'base1.html' %} {% load static %} 
+
+{% block product %} 
+<div style="margin-top: auto;" class="section-fluid-main">
+		<div style="margin-top: 2%;" class="section">
+	      	<div style="padding-top: 10px;" class="info-wrap mob-margin">
+	      		<p class="title-up">{{v}}</p>
+	      		<h2>{{a1.productname}}</h2>
+	      		<h4>₹{{a1.offerprice}} <span>₹{{a1.price}}</span></h4>	
+				  <h5>Images:</h5>
+				</div>
+				<div class="clearfix"></div>
+				<input class="color-btn1 for-color-1" type="radio" id="color-1" name="color-btn" checked/>
+				<label style="background-image: url('{{a1.productphoto1.url}}'); height: 40px; width: 50px;" class="first-color" for="color-1"></label> 
+				<input class="color-btn1 for-color-2" type="radio" id="color-2" name="color-btn"/>
+				<label style="background-image: url('{{a1.productphoto2.url}}'); height: 40px; width: 50px;" class="color-2" for="color-2"></label> 
+				<input class="color-btn1 for-color-3" type="radio" id="color-3" name="color-btn"/>
+				<label style="background-image: url('{{a1.productphoto3.url}}'); height: 40px; width: 50px;" class="color-3" for="color-3"></label> 
+				<input class="color-btn1 for-color-4" type="radio" id="color-4" name="color-btn"/>
+				<label style="background-image: url('{{a1.productphoto4.url}}'); height: 40px; width: 50px;" class="color-4" for="color-4"></label> 
+	      		<!-- <div class="section-fluid">
+	      			<input class="desc-btn" type="radio" id="desc-1" name="desc-btn" checked/>
+	      			<label style="font-size: larger; font-weight: bold;" for="desc-1">Description</label> 
+		      		<div class="section-fluid desc-sec accor-1">
+		      			<
+		      		</div>	
+	      		</div>	 -->
+				  <div style="margin-top: 20px;" class="info-wrap">
+				<form method="post" action="../20" id="myform">
+				{% csrf_token %}
+					{% if a1.producttype == 'shoes' %} 
+					<h5>Size:</h5>
+					
+					<input type="radio" class="btn-check" name="size" id="option6"  autocomplete="off" value="12k" checked>
+					<label class="btn" for="option6">12k</label>
+					<input type="radio" class="btn-check" name="size" id="option8" autocomplete="off" value="13k">
+					<label class="btn" for="option8">13k</label>
+					<input type="radio" class="btn-check" name="size" id="option9" autocomplete="off" value="1">
+					<label class="btn" for="option9">1</label>
+					<input type="radio" class="btn-check" name="size" id="option10" autocomplete="off" value="2">
+					<label class="btn" for="option10">2</label>
+					<input type="radio" class="btn-check" name="size" id="option11" autocomplete="off" value="3">
+					<label class="btn" for="option11">3</label>
+					<input type="radio" class="btn-check" name="size" id="option12" autocomplete="off" value="4">
+					<label class="btn" for="option12">4</label>
+					<input type="radio" class="btn-check" name="size" id="option13" autocomplete="off" value="5">
+					<label class="btn" for="option13">5</label>
+
+					{% elif a1.producttype == 'accessories' %} 
+					<!-- not a thing -->
+					{% else %}
+					<h5>Size:</h5>
+
+					<input type="radio" class="btn-check" name="size" id="option6" autocomplete="off" checked value="5-6Y">
+					<label class="btn" for="option6">5-6Y</label>
+					<input type="radio" class="btn-check" name="size" id="option8" autocomplete="off" value="7-8Y">
+					<label class="btn" for="option8">7-8Y</label>
+					<input type="radio" class="btn-check" name="size" id="option9" autocomplete="off" value="9-10Y">
+					<label class="btn" for="option9">9-10Y</label>
+					<input type="radio" class="btn-check" name="size" id="option10" autocomplete="off" value="11-12Y">
+					<label class="btn" for="option10">11-12Y</label>
+					<input type="radio" class="btn-check" name="size" id="option11" autocomplete="off" value="13-14Y">
+					<label class="btn" for="option11">13-14Y</label>
+					{% endif %}
+
+
+				</div>
+
+				<div style="margin-top: 20px;" class="info-wrap">
+				<div class="d-flex justify-content-evenly ">
+					<h5>Quantity:</h5>
+					<div style="margin-left: 20px; margin-top: -10px;" class="wrapper">
+						<span class="minus">-</span>
+						<span class="num" >1</span>
+						<span class="plus">+</span>
+						
+					  </div>
+				</div>
+				</div>
+
+				<div style="margin-top: -30px;" class="info-wrap">
+					<button href="#"  class="btn1"><i class="uil uil-shopping-cart icon" type="submit"></i> Add To Cart</button>
+				  </div>
+
+
+
+				  <!-- hidden outputs -->
+				  <input type="hidden" name="qty" id="qty" value="1">
+				  <input type="hidden" name="product_id" value="{{ a1.id }}">
+				  <input type="hidden" name="product_price" value="{{a1.offerprice}}">
+				  <input type="hidden" name="product_name" value="{{a1.productname}}">
+				  <input type="hidden" name="seller_id" value="{{a1.seller_id}}">
+				  
+
+
+
+
+				</form>
+
+				<div style="margin-top: 20px;" class="info-wrap">
+					<h5>Description</h5>
+					<p>{{a1.description}}</p>
+
+				</div>
+	      		
+	      	<!-- <input class="color-btn for-color-6" type="radio" id="color-6" name="color-btn"/> -->
+	      	<!-- <label class="color-6" for="color-6"></label>  -->
+	      	
+			
+	      	<div style="background-image: url('{{a1.productphoto1.url}}'); height: 350px ;width: 350px; " class="img-wrap chair-1"></div>
+	      	<div style="background-image: url('{{a1.productphoto2.url}}'); height: 350px ;width: 350px;" class="img-wrap chair-2"></div>	
+	      	<div style="background-image: url('{{a1.productphoto3.url}}'); height: 350px ;width: 350px;" class="img-wrap chair-3"></div>
+	      	<div style="background-image: url('{{a1.productphoto4.url}}'); height: 350px ;width: 350px;" class="img-wrap chair-4"></div>		
+	      	<!-- <div class="back-color"></div>	 -->
+	      	<!-- <div class="back-color chair-2"></div>	
+	      	<div class="back-color chair-3"></div>	
+	      	<div class="back-color chair-4"></div>	 -->
+
+					
+		</div>
+		<script>
+
+			const plus = document.querySelector(".plus"),
+			 minus = document.querySelector(".minus"),
+			 num = document.querySelector(".num");
+			 qtyInput = document.getElementById("qty");
+		 
+			 let a = 1;
+		 
+			 plus.addEventListener("click", ()=>{
+			   a++;
+			   num.innerText = a;
+			   qtyInput.value = a;
+			 });
+		 
+			 minus.addEventListener("click", ()=>{
+			   if(a > 1){
+				 a--;
+				 num.innerText = a;
+				 qtyInput.value = a;
+			   }
+			 });
+		 
+		   </script>
+	</div>
+{% endblock product %}
